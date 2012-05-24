@@ -1,0 +1,206 @@
+/* 
+    Document   : win 8 css styles for JavaFX 2+ controls.
+    Created on : May 22, 2012, 3:31:03 PM
+    Description:
+        Attempt to recreate Win 8 theme. (Everything except Stage itself.)
+        For each control I specify the number of layers in the comments. I use
+        this term to describe the relationship between a background color,
+        background inset and background radius. 
+*/
+
+/***************************************************************************
+*                                                                         *
+* The main color palette from which the rest of the colors are derived.   *
+*                                                                         *
+**************************************************************************/
+.root {
+
+    /* Base Color. Slightly off white */
+    -fx-light-base: #f8f8f8;
+    
+    /* Base Color. A gray with a blue undertone. */
+    -fx-dark-base: rgb(166,171,178);
+    
+    /* Base Color. A dark blue used for control's active state (selected). */
+    -fx-active-base: rgb(28, 81, 128);
+    
+    /* Base Color. An orange used for control's hover state. */
+    -fx-hover-base: rgb(248, 179, 48);
+    
+    /* Base Color. Control's mark selection color. */
+    -fx-control-selection-color: rgb(73, 95, 150);
+    
+    /* Border Color for each control. A medium gray */
+    -fx-control-border-color: rgb(141,141,141);
+    
+    /* Inner Border Color for each control. */
+    -fx-control-inner-border-color: rgb(255,255,255);
+    
+    /* Background Color of the control. */
+    -fx-control-body-color: linear-gradient(
+        to bottom,
+        derive(-fx-dark-base,34%) 0%,
+        derive(-fx-dark-base,-18%) 100%
+    );
+    
+    /* Dropshadow color for controls. */
+    -fx-control-dropshadow-color: derive(-fx-light-base, -35%);
+    
+    /* Mark Colors */
+    -fx-mark-highlight-color: derive(-fx-control-selection-color, -40%);
+    -fx-mark-color: -fx-control-selection-color;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Tooltip                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
+.tooltip {
+    
+    /* 
+    Layer 0: Tooptip border. 
+    Layer 1: Background fill.
+    */
+    
+    /* 
+    Tooptip border color 
+    */
+    -fx-tooltip-background-border: linear-gradient(
+        to bottom,
+        derive(-fx-control-border-color,70%) 0%,
+        derive(-fx-control-border-color,-18%) 100%
+    );
+    
+    /* 
+    Tooltip fill color
+    */
+    -fx-tooltip-background-color: linear-gradient(
+        to bottom,
+        -fx-light-base 0%, 
+        derive(-fx-light-base, -15%) 100%
+    ); 
+    
+    /* Now style the tooltip */
+    -fx-background-color:
+        -fx-tooltip-background-border, 
+        -fx-tooltip-background-color;
+    -fx-background-insets: 2,3;
+    -fx-background-radius: 4,3;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow( one-pass-box , -fx-control-dropshadow-color , 3, 0, 2, 2);
+}
+
+/* Drop page Corner. 
+    Note: Is it possible to reposition the page-corner to 
+    create a balloon tip? Look into SVGPaths.*/
+.page-corner {
+    -fx-shape: "";
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * CheckBox                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+
+.check-box {
+    
+    /* Specific to checkbox, creates the background border. The background
+    border is the gradient effect that immediatly surrounds the checkbox
+    control's background fill. */
+    -fx-checkbox-background-border: linear-gradient(
+        to top left,
+        derive(-fx-dark-base,70%) 0%,
+        derive(-fx-dark-base,-18%) 100%
+    );
+    
+    /* Specific to checkbox, creates the background fill. */
+    -fx-checkbox-background-color: linear-gradient(
+        to bottom right,
+        derive(-fx-dark-base,10%) 0%,
+        derive(-fx-dark-base,70%) 60%,
+        derive(-fx-dark-base,90%) 100%
+    );
+    
+    
+    -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em; /* 0 0 0 5 */
+    -fx-text-fill: #000;
+}
+
+/* Plain checkbox without focus or selected. */
+.check-box .box {
+    /*
+    Layer 0: Outer Border Color             -fx-control-border-color (in .root)
+    Layer 1: Inner Border Color             -fx-control-inner-border-color (in .root)
+    Layer 2: Fill Gradient Border Color     -fx-checkbox-background-border (here)
+    Layer 3: Fill Background Color          -fx-checkbox-background-color (here)
+    */
+    
+    
+    
+    /* Now we apply all backgrounds to each layer defined below. */
+    -fx-background-color: 
+        -fx-control-border-color, 
+        -fx-control-inner-border-color, 
+        -fx-checkbox-background-border,
+        -fx-checkbox-background-color;
+
+    -fx-background-insets: 0, 1, 2, 3;
+    -fx-background-radius: 0,0,0,0;
+    -fx-padding: 0.25em; /* 3 -- padding from the outside edge to the mark */
+}
+
+
+.check-box:focused .box {
+    -fx-background-color: 
+        -fx-active-base, 
+        -fx-control-inner-border-color, 
+        -fx-checkbox-background-border,
+        -fx-checkbox-background-color;
+    -fx-background-insets: 0, 1, 2, 3;
+    -fx-background-radius: 0,0,0,0;
+}
+
+.check-box:hover .box {
+    -fx-background-color: 
+        -fx-active-base, 
+        -fx-control-inner-border-color, 
+        -fx-hover-base,
+        -fx-checkbox-background-color;
+    -fx-background-insets: 0, 1, 2, 3;
+    -fx-background-radius: 0,0,0,0;
+}
+
+.check-box:armed .box {
+    -fx-color: -fx-pressed-base;
+}
+
+.check-box .mark {
+    -fx-background-color: transparent;
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.333333em; /* 4 -- this is half the size of the mark */
+    -fx-shape: "M0,4H2L3,6L6,0H8L4,8H2Z";
+}
+
+/* TODO: scale the shape - the problem is that it is not within a square
+ * boundary.
+ */
+.check-box:indeterminate .mark {
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+    -fx-shape: "M0,0H8V2H0Z";
+    -fx-scale-shape: false;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: -fx-mark-highlight-color, -fx-mark-color;
+}
+
+.check-box:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}
+
+.check-box:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+} 

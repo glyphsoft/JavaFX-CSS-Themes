@@ -225,10 +225,10 @@
     /* Specific to button, creates the background fill. */
     -fx-button-background-color: linear-gradient(
         to bottom,
-        derive(-fx-dark-base,90%) 0%,
+        derive(-fx-dark-base,95%) 0%,
+        derive(-fx-dark-base,80%) 50%,
         derive(-fx-dark-base,70%) 50%,
-        derive(-fx-dark-base,50%) 50%,
-        derive(-fx-dark-base,30%) 100%
+        derive(-fx-dark-base,40%) 100%
     );
     
     -fx-background-color: 
@@ -257,10 +257,10 @@
     
     -fx-button-hover-background-color: linear-gradient(
         to top,
-        derive(-fx-dark-base,90%) 0%,
+        derive(-fx-dark-base,95%) 0%,
+        derive(-fx-dark-base,80%) 50%,
         derive(-fx-dark-base,70%) 50%,
-        derive(-fx-dark-base,50%) 50%,
-        derive(-fx-dark-base,30%) 100%
+        derive(-fx-dark-base,40%) 100%
     );
     
     -fx-background-color: 
@@ -283,10 +283,10 @@
     
     -fx-button-hover-background-color: linear-gradient(
         to bottom,
-        derive(-fx-dark-base,90%) 0%,
+        derive(-fx-dark-base,95%) 0%,
+        derive(-fx-dark-base,80%) 50%,
         derive(-fx-dark-base,70%) 50%,
-        derive(-fx-dark-base,50%) 50%,
-        derive(-fx-dark-base,30%) 100%
+        derive(-fx-dark-base,40%) 100%
     );
     
     -fx-background-color: 
@@ -339,5 +339,98 @@
 }
 
 .button:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+} 
+
+/*******************************************************************************
+ *                                                                             *
+ * RadioButton                                                                 *
+ *                                                                             *
+ ******************************************************************************/
+
+.radio-button {
+    -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em; /* 0 0 0 5 */
+    -fx-text-fill: -fx-text-background-color;
+    
+    -fx-radio-background-border: linear-gradient(
+        to top left,
+        derive(-fx-dark-base,70%) 0%,
+        derive(-fx-dark-base,-18%) 100%
+    );
+    
+    -fx-radio-background-color: linear-gradient(
+        to bottom right,
+        derive(-fx-dark-base,10%) 0%,
+        derive(-fx-dark-base,70%) 60%,
+        derive(-fx-dark-base,90%) 100%
+    );
+}
+
+.radio-button:focused {
+    -fx-color: -fx-focused-base;
+}
+
+.radio-button .radio  {
+   -fx-background-color: 
+       -fx-control-border-color, 
+       -fx-control-inner-border-color, 
+       -fx-control-body-color,
+       radial-gradient(center 70% 70%, radius 90%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+   -fx-background-insets: 0,  1,  2, 2;
+   -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+   -fx-padding: 0.333333em; /* 4 -- padding from outside edge to the inner black dot */
+}
+
+.radio-button:focused .radio {
+
+    -fx-background-color: 
+        -fx-active-base, 
+        -fx-control-inner-border-color, 
+        -fx-checkbox-background-border,
+        -fx-checkbox-background-color;
+    -fx-background-insets: 0, 1, 2, 3;
+    
+   -fx-background-color: 
+        -fx-active-base,
+        -fx-control-inner-border-color
+        -fx-radio-background-border,
+        -fx-radio-background-color,
+         radial-gradient(center 70% 70%, radius 90%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-insets: 0, 1, 2, 3, 3;
+   -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+   
+}
+
+.radio-button:hover .radio {
+    -fx-background-color: 
+        -fx-active-base,
+        -fx-hover-base,
+        -fx-control-body-color,
+         radial-gradient(center 70% 70%, radius 90%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+    -fx-background-insets: 0, 1, 3, 3;
+}
+.radio-button:armed .radio {
+    -fx-color: -fx-pressed-base;
+}
+
+.radio-button .dot {
+   -fx-background-color: transparent;
+   -fx-background-insets: 0;
+   -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+   -fx-padding: 0.25em; /* 3 -- radius of the inner black dot when selected */
+}
+
+.radio-button:selected .dot {
+    
+   -fx-radio-mark-color: radial-gradient(center 10% 10%, radius 70%, rgba(255,255,255,0.9), rgba(255,255,255,0));
+   -fx-background-color: -fx-control-selection-color, -fx-radio-mark-color;
+   -fx-background-insets: 0, 1;
+}
+
+.radio-button:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}
+
+.radio-button:show-mnemonics .mnemonic-underline {
     -fx-stroke: -fx-text-fill;
 } 

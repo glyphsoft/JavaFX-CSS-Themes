@@ -27,14 +27,17 @@
     /* Base Color. An orange used for control's hover state. */
     -fx-hover-base: rgb(248, 179, 48);
     
+    /* Base Color. A bright blue used in Button active state. Do we use blue or orange? */
+    -fx-button-active-base: rgb(70, 216, 251);
+    
     /* Base Color. Control's mark selection color. */
     -fx-control-selection-color: rgb(73, 95, 150);
     
     /* Border Color for each control. A medium gray */
-    -fx-control-border-color: rgb(141,141,141);
+    -fx-control-border-color: rgb(112, 112, 112);/*rgb(141,141,141);*/
     
     /* Inner Border Color for each control. */
-    -fx-control-inner-border-color: rgb(255,255,255);
+    -fx-control-inner-border-color: rgb(255, 255, 255);
     
     /* Background Color of the control. */
     -fx-control-body-color: linear-gradient(
@@ -202,5 +205,139 @@
 }
 
 .check-box:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+} 
+
+/*******************************************************************************
+ *                                                                             *
+ * Button                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+
+/*
+ Layer 0: Button Outer Border.             -fx-control-border-color (in .root)
+ Layer 1: Button Inner Border.             -fx-control-inner-border-color (in .root)
+ Layer 2: Button Background Fill.          -fx-button-background-color (here)
+*/
+
+.button {
+
+    /* Specific to button, creates the background fill. */
+    -fx-button-background-color: linear-gradient(
+        to bottom,
+        derive(-fx-dark-base,90%) 0%,
+        derive(-fx-dark-base,70%) 50%,
+        derive(-fx-dark-base,50%) 50%,
+        derive(-fx-dark-base,30%) 100%
+    );
+    
+    -fx-background-color: 
+        -fx-control-border-color,
+        -fx-control-inner-border-color,
+        -fx-button-background-color;
+        
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 3, 2, 1;
+    -fx-padding: 0.40em 0.833333em 0.40em 0.833333em;
+    -fx-text-fill: -fx-text-base-color;
+    -fx-alignment: CENTER;
+    -fx-content-display: LEFT;
+}
+
+.button:focused {
+    
+    /* Add the gradient effect to blue highlight color */
+    -fx-button-highlight-color: linear-gradient(
+        to bottom,
+        derive(-fx-button-active-base,0%) 0%,
+        derive(-fx-button-active-base,15%) 50%,
+        derive(-fx-button-active-base,15%) 50%,
+        derive(-fx-button-active-base,0%) 100%
+    );
+    
+    -fx-button-hover-background-color: linear-gradient(
+        to top,
+        derive(-fx-dark-base,90%) 0%,
+        derive(-fx-dark-base,70%) 50%,
+        derive(-fx-dark-base,50%) 50%,
+        derive(-fx-dark-base,30%) 100%
+    );
+    
+    -fx-background-color: 
+        -fx-active-base,
+        -fx-button-highlight-color,
+        -fx-button-background-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 3, 2, 1;
+}
+
+.button:hover {
+    /* Add the gradient effect to blue highlight color */
+    -fx-button-highlight-color: linear-gradient(
+        to bottom,
+        derive(-fx-hover-base,0%) 0%,
+        derive(-fx-hover-base,15%) 50%,
+        derive(-fx-hover-base,15%) 50%,
+        derive(-fx-hover-base,0%) 100%
+    );
+    
+    -fx-button-hover-background-color: linear-gradient(
+        to bottom,
+        derive(-fx-dark-base,90%) 0%,
+        derive(-fx-dark-base,70%) 50%,
+        derive(-fx-dark-base,50%) 50%,
+        derive(-fx-dark-base,30%) 100%
+    );
+    
+    -fx-background-color: 
+        -fx-active-base,
+        -fx-button-highlight-color,
+        -fx-button-hover-background-color;
+}
+
+/* Need to find colors for pressed button state in Win 8. */
+.button:armed {
+    -fx-button-highlight-color: linear-gradient(
+        to bottom,
+        derive(-fx-control-inner-border-color,70%) 0%,
+        derive(-fx-control-inner-border-color,90%) 50%,
+        derive(-fx-control-inner-border-color,90%) 50%,
+        derive(-fx-control-inner-border-color,70%) 100%
+    );
+    
+    -fx-button-hover-background-color: linear-gradient(
+        to bottom,
+        derive(-fx-button-active-base,80%) 0%,
+        derive(-fx-button-active-base,65%) 50%,
+        derive(-fx-button-active-base,40%) 50%,
+        derive(-fx-button-active-base,10%) 100%
+    );
+    
+    /* See Jasper's shiny orange button demo for last 2 layers. This create
+    a horizontal gradient on left and right sides of the button (fading towards
+    the center of the button)
+    http://fxexperience.com/2011/12/styling-fx-buttons-with-css/ */
+    -fx-background-color: 
+        -fx-active-base,
+        -fx-button-highlight-color,
+        -fx-button-hover-background-color,
+        linear-gradient(from 0% 30% to 15% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0)),
+        linear-gradient(from 100% 30% to 85% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0));
+    
+    -fx-color: -fx-pressed-base;
+}
+ 
+.button:default {
+    -fx-base: -fx-accent;
+}
+
+.button:cancel {
+}
+
+.button:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}
+
+.button:show-mnemonics .mnemonic-underline {
     -fx-stroke: -fx-text-fill;
 } 

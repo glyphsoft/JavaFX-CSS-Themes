@@ -2,7 +2,9 @@
     Document   : win 7 glass css styles for JavaFX 2+ controls.
     Created on : May 22, 2012, 3:31:03 PM
     Description:
-        Attempt to recreate Win 7 glass theme.
+        Attempt to recreate Win 7 glass theme. If a -fx- variable isnt defined
+        in this CSS stylesheet, I am referecing it in the default style sheet
+        "caspian.css".
 */
 
 /***************************************************************************
@@ -20,20 +22,24 @@
  *                                                                             *
  ******************************************************************************/
 
+/* OK */
 .tooltip {
-    -fx-background-color: rgb(112,112,112),
+    
+    -fx-background-color: rgba(112,112,112,0.95),
         linear-gradient(
             to bottom,
-            rgb(248,248,248), 
-            rgb(215,215,215));
+            rgb(255,255,255), 
+            rgb(229,229,237));
+    
     -fx-background-insets: 1,2;
     -fx-background-radius: 3,2;
-    -fx-padding: 8px;
+    -fx-padding: 5 7 5 7;
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3),3,0,2,2);
 }
 
 /* Page Corner. */
 .page-corner {
+    
     -fx-shape: "";
 }
 
@@ -68,7 +74,6 @@
     -fx-text-fill: -fx-text-base-color;
     -fx-alignment: CENTER;
     -fx-content-display: LEFT;
-  
 }
 
 /* OK */
@@ -150,5 +155,233 @@
 }
 
 .button:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+} 
+
+/*******************************************************************************
+ *                                                                             *
+ * CheckBox                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+
+.check-box {
+    -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em;
+    -fx-text-fill: #000;
+}
+
+/* OK */
+.check-box .box {
+   
+    -fx-background-color: 
+        rgb(142,143,143),
+        rgb(244,244,244),
+        linear-gradient(
+            to bottom right,
+            rgb(174,179,185) 0%,
+            rgb(233,233,234) 75%,
+            rgb(233,233,234) 100%
+        ),
+        linear-gradient(
+            to bottom right,
+            rgb(203,207,213) 0%,
+            rgb(246,246,246) 84%,
+            rgb(246,246,246) 100%
+        );
+
+    -fx-background-insets: 0, 1, 2, 3;
+    -fx-background-radius: 0,0,0,0;
+    -fx-padding: 0.25em;
+}
+
+/* OK */
+.check-box:focused .box {
+    
+    -fx-background-color: 
+        rgb(85,134,163),
+        rgb(222,249,250),
+        linear-gradient(
+            to bottom right,
+            rgb(121,198,245) 35%,
+            rgb(207,236,253) 100%),
+        linear-gradient(
+            to bottom right,
+            rgb(177,223,253) 0%,
+            rgb(231,247,254) 85%);
+}
+
+/* OK */
+.check-box:hover .box {
+    
+    -fx-background-color: 
+        rgb(85,134,163),
+        rgb(222,249,250),
+        linear-gradient(
+            to bottom right,
+            rgb(121,198,249) 0%,
+            rgb(121,198,249) 54%,
+            rgb(207,236,253) 85%,
+            rgb(207,236,253) 100%),
+        linear-gradient(
+            to bottom right,
+            rgb(177,223,253) 0%,
+            rgb(231,247,254) 75%,
+            rgb(231,247,254) 100%);
+}
+
+/* OK */
+.check-box:armed .box {
+    
+    -fx-background-color: 
+        rgb(44,98,139),
+        rgb(194,228,246),
+        linear-gradient(
+            to bottom right,
+            rgb(94,182,247) 0%,
+            rgb(94,182,247) 54%,
+            rgb(193,230,252) 85%,
+            rgb(193,230,252) 100%),
+        linear-gradient(
+            to bottom right,
+            rgb(157,213,252) 0%,
+            rgb(224,244,254) 75%,
+            rgb(224,244,254) 100%);
+    
+    -fx-color: -fx-pressed-base;
+}
+
+.check-box .mark {
+    -fx-background-color: transparent;
+    -fx-background-insets: 1 0 -1 0;
+    -fx-padding: 0.333333em; 
+    -fx-shape: "M0,4H2L3,6L6,0H8L4,8H2Z";
+}
+
+/* OK */
+.check-box:indeterminate .mark {
+    -fx-background-color: rgb(74,95,151);
+    -fx-shape: "M0,0H8V2H0Z";
+    -fx-scale-shape: false;
+}
+
+/* OK */
+.check-box:selected .mark {
+    -fx-background-color: rgb(74,95,151);
+}
+
+.check-box:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}
+
+.check-box:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+} 
+
+/*******************************************************************************
+ *                                                                             *
+ * RadioButton                                                                 *
+ *                                                                             *
+ ******************************************************************************/
+
+.radio-button {
+    -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em;
+    -fx-text-fill: -fx-text-background-color;
+}
+
+.radio-button:focused {
+    -fx-color: -fx-focused-base;
+}
+
+/* OK */
+.radio-button .radio  {
+   
+    -fx-background-color: 
+        rgb(145,146,146), 
+        rgb(242,242,242), 
+        rgb(181,186,196),
+        radial-gradient(
+            center 65% 65%, 
+            radius 100%, 
+            rgba(255,255,255,0.85), 
+        rgba(255,255,255,0));
+ 
+   -fx-background-insets: 0, 1, 2, 3 2 2 3;
+   -fx-background-radius: 1.0em;
+   -fx-padding: 0.25em;
+}
+
+/* OK */
+.radio-button:focused .radio {
+    
+    -fx-background-color: 
+       rgb(85,134,163), 
+        rgb(222,249,250), 
+        rgb(121,198,249),
+        radial-gradient(
+            center 65% 65%, 
+            radius 100%, 
+            rgba(255,255,255,0.85), 
+        rgba(255,255,255,0))
+}
+
+/* OK */
+.radio-button:hover .radio {
+        
+    -fx-background-color: 
+       rgb(85,134,163), 
+        rgb(222,249,250), 
+        rgb(121,198,249),
+        radial-gradient(
+            center 65% 65%, 
+            radius 100%, 
+            rgba(255,255,255,0.85), 
+        rgba(255,255,255,0))
+}
+
+/* OK */
+.radio-button:armed .radio {
+    
+    -fx-background-color: 
+        rgb(44,98,139), 
+        rgb(194,228,246), 
+        rgb(75,154,215),
+        radial-gradient(
+            center 65% 65%, 
+            radius 100%, 
+            rgba(255,255,255,0.85), 
+            rgba(255,255,255,0));
+    
+    -fx-color: -fx-pressed-base;
+}
+
+.radio-button .dot {
+   -fx-background-color: transparent;
+   -fx-background-insets: 0;
+   -fx-background-radius: 1.0em; 
+   -fx-padding: 0.25em; 
+}
+
+/* OK */
+.radio-button:selected .dot {
+    
+    -fx-background-color: 
+        rgb(25,52,74),
+        linear-gradient(
+            to bottom right,
+            rgb(255,255,255) 0%,
+            rgb(11,130,199) 40%),
+        radial-gradient(
+            center 10% 10%, 
+            radius 70%, 
+            rgb(255,255,255), 
+            rgba(255,255,255,0.2));
+    
+   -fx-background-insets: 0, 1, 1;
+}
+
+.radio-button:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}
+
+.radio-button:show-mnemonics .mnemonic-underline {
     -fx-stroke: -fx-text-fill;
 } 

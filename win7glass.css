@@ -5,6 +5,19 @@
         Attempt to recreate Win 7 glass theme. If a -fx- variable isnt defined
         in this CSS stylesheet, I am referecing it in the default style sheet
         "caspian.css".
+
+        In this version: Menus have been styled. However, a fundamental problem
+        exists. Currently Im perplexed. I'd like your thoughts: Is it possible
+        in CSS to detect if a graphic Icon exists? I originally thought using
+        the '.menu-item .graphic-container {}' class as a part of clever css to 
+        override the .context-menu {} styles. I thought in this situation it is
+        known that a graphic icon exists. And I could work from that.
+
+        If you have thoughts, please advise.
+
+        The issue will be obvious if your menu doesnt contain any graphic icons.
+        The line will appear behind menu item text. However, progress is being 
+        made!
 */
 
 /***************************************************************************
@@ -40,7 +53,7 @@
 /* Page Corner. */
 .page-corner {
     
-    -fx-shape: "";
+    -fx-shape: null;
 }
 
 /*******************************************************************************
@@ -385,3 +398,321 @@
 .radio-button:show-mnemonics .mnemonic-underline {
     -fx-stroke: -fx-text-fill;
 } 
+
+/*******************************************************************************
+ *                                                                             *
+ * PopupMenu                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+
+.context-menu {
+    -fx-background-color:
+        rgb(151,151,151), /* Menu BG Border, Inset: 0 */
+        rgb(245,245,245), /* inner highlight color, Inset: 1 */
+        rgb(240,240,240); /* off white on right side of gray vertica divider, Inset: 2 2 2 27 */
+        
+    /* Does the gray vertical divider spacing break with font size differences? 
+    Currently I have 3 pixels b/n menu icon and gray vertical divider. I
+    also have 3 pixels b/n gray vert divider and start of menu text. */
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0,0,0,0,0,0;
+/*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3),3,0,2,2);
+}
+
+.context-menu {
+    
+    -fx-background-color:
+        rgb(151,151,151), /* Menu BG Border, Inset: 0 */
+        rgb(245,245,245), /* inner highlight color, Inset: 1 */
+        rgb(241,241,241), /* off white on left side of gray vertical divider, Inset: 2 */
+        rgb(226,227,227), /* gray vertical divider, Inset: 2 2 2 25 */
+        rgb(255,255,255), /* white highlight for vert divider, Inset: 2 2 2 26 */
+        rgb(240,240,240); /* off white on right side of gray vertica divider, Inset: 2 2 2 27 */
+        
+    -fx-background-insets: 0, 1, 2, 2 2 2 25, 2 2 2 26, 2 2 2 27;
+    -fx-background-radius: 0,0,0,0,0,0;
+/*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
+    -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3),3,0,2,2);
+}
+
+.context-menu .separator {
+    -fx-padding: 0.0em 0.333333em 0.0em 0.333333em; /* 0 4 0 4 */
+}
+
+.context-menu .scroll-arrow {
+    -fx-padding: 0.416667em 0.416667em 0.416667em 0.416667em; /* 5 */
+    -fx-background-color: transparent;
+}
+
+.context-menu .scroll-arrow:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: -fx-selection-bar;
+    -fx-text-fill: -fx-selection-bar-text;
+}
+
+.context-menu:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+} 
+
+/*******************************************************************************
+ *                                                                             *
+ * Menu                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+
+/* Each Top Level Menu Item: File, Etc, Etc...*/
+.menu {
+    -fx-background-color: transparent;
+    -fx-padding: 0.42em 0.4em 0.3em 0.4em; /* 4 8 4 8 */
+    -fx-text-fill: rgb(0,0,0);
+}
+
+.menu:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}
+
+.menu:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+}
+
+/* This hides the down arrow that would show on a menu placed in a menubar */
+.menu-bar .menu .arrow {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-shape: null;
+}
+
+.menu-bar .menu .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu .arrow {
+    -fx-background-color: rgb(40,40,40);
+    -fx-shape: "M0,-4L4,0L0,4Z";
+    -fx-scale-shape: false;
+}
+
+.menu:focused:showing .arrow, .menu:hover:showing .arrow, .menu:focused .arrow, .menu:showing .arrow {
+    -fx-background-color: black;
+}
+
+.menu-up-arrow {
+    -fx-padding: 0.666667em 0.416667em 0.0em 0.416667em;  /* 8 5 0 5 */
+    -fx-background-color: derive(-fx-color,-2%);
+    -fx-shape: "M0 1 L1 1 L.5 0 Z";
+    -fx-effect: innershadow( two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1 );
+}
+
+.menu-down-arrow {
+    -fx-background-color: derive(-fx-color,-2%);
+    -fx-padding: 0.666667em 0.416667em 0.0em 0.416667em;  /* 8 5 0 5 */
+    -fx-shape: "M0 0 L1 0 L.5 1 Z";
+    -fx-effect: innershadow( two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 1 );
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * MenuBar                                                                     *
+ *                                                                             *
+ ******************************************************************************/
+
+/* TO DO: Experiment with rgba() for linear gradients so bg shows through. */
+.menu-bar {
+    
+    /*-fx-padding: 0.0em 0.666667em 0.0em 0.666667em;*/
+    -fx-padding: 0 0 0 0; 
+    -fx-spacing: 0.166667em; 
+  
+    -fx-background-color: 
+        rgb(182,188,204),
+        linear-gradient(
+            to bottom,
+            rgb(254,254,255) 0%,
+            rgb(242,244,250) 35%,
+            rgb(233,236,246) 35%,
+            rgb(240,242,250) 100%),
+        linear-gradient(
+            to bottom, 
+            rgb(254,254,255) 0%,
+            rgb(229,234,245) 35%,
+            rgb(212,219,237) 35%,
+            rgb(225,230,246) 100%);
+            
+    -fx-background-insets: 0, 0 0 1 0, 0 1 1 1;
+    -fx-background-radius: 0, 0, 0;
+}
+
+/* Show nothing for background of normal menu button in a menu bar */
+.menu-bar .menu-button {
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0; 
+}
+
+/* Change padding of menu buttons when in menu bar */
+.menu-bar .menu-button .label {
+    -fx-padding: 0.1em 0.5em 0.2em 0.5em;
+}
+
+.menu-bar .menu-button:hover {
+    -fx-text-fill: rgb(0,0,0);
+    -fx-background-color: 
+        linear-gradient(
+            to bottom,
+            rgb(176,177,177) 0%,
+            rgb(160,163,171) 40%,
+            rgb(148,153,165) 40%,
+            rgb(127,131,142) 100%),
+        linear-gradient(
+            to bottom,
+            rgb(253,253,254) 0%,
+            rgb(244,246,251) 30%,
+            rgb(236,239,247) 30%,
+            rgb(213,216,224) 60%,
+            rgb(239,241,249) 100%),
+        linear-gradient(
+            to bottom,
+            rgba(246,248,250,0.2),
+            rgba(229,233,240,0.2),
+            rgba(215,220,233,0.2));
+    
+    -fx-background-insets: 3,4,5,5;
+    -fx-background-radius: 3,2,2,2;
+    
+    /*linear-gradient(
+            to bottom,
+            rgb(246,248,250) 0%,
+            rgb(229,233,240) 30%,
+            rgb(215,220,233) 30%,
+            rgb(211,217,231) 60%,
+            rgb(196,202,217) 60%,
+            rgb(224,228,243) 100%);*/
+}
+
+.menu-bar .menu-button:focused, .menu-bar .menu-button:showing {
+    -fx-text-fill: rgb(0,0,0);
+    -fx-background-color: 
+        linear-gradient(
+            rgb(88,88,89) 0%,
+            rgb(64,66,71) 100%),
+        linear-gradient(
+            rgb(159,160,162) 0%,
+            rgb(173,176,187) 100%),
+        linear-gradient(
+            rgb(182,184,187) 0%,
+            rgb(200,205,218) 100%),
+        linear-gradient(
+            rgb(200,202,208) 0%,
+            rgb(205,209,219) 35%,
+            rgb(194,200,217) 35%,
+            rgb(213,218,233) 100%);
+    
+    -fx-background-insets: 3,4,5,5;
+    -fx-background-radius: 3,2,2,2;
+}
+
+.menu-bar:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * MenuItem                                                                    *
+ *                                                                             *
+ ******************************************************************************/
+
+.menu-item {
+    
+    /*-fx-padding: 0.333333em 0.41777em 0.333333em 0.41777em; */  /* 4 5 4 5 */
+    -fx-padding: 0.6em 0.82em 0.6em 0.62em;
+}
+
+.menu-item .left-container {
+    -fx-padding: 0.458em 0.791em 0.458em 0.458em;
+    -fx-background-color: #ffffff;
+}
+
+.menu-item .graphic-container {
+    -fx-padding: 0em 0.333em 0em 0em;
+}
+
+/* Adds padding to the label text. For ex, adds .05em spacing b/n label text
+    and Shortcut accelerator text. */
+.menu-item .label {
+    -fx-padding: 0em 0.5em 0em 0em;
+    -fx-text-fill: rgb(0,0,0); /* Menu Item Text Color */
+}
+
+.menu-item:disabled .label {
+    -fx-opacity: -fx-disabled-opacity;
+}
+
+/* Menu Item Hover */
+.menu-item:focused {
+     -fx-background: -fx-accent;
+     -fx-background-color:
+         rgb(174,207,247),
+         linear-gradient(
+            to bottom,
+            rgb(248,248,250) 0%,
+            rgb(239,244,250) 100%),
+         linear-gradient(
+            to bottom,
+            rgb(243,248,247) 0%,
+            rgb(231,238,247) 100%);
+
+     -fx-background-insets: 3, 4, 5;
+     -fx-background-radius: 3, 2, 1 ;
+     -fx-text-fill: rgb(0,0,0);
+     
+}
+
+.menu-item:focused .label {
+    -fx-text-fill: rgb(0,0,0);
+}
+.menu-item .right-container {
+    -fx-padding: 0em 0em 0em 0.5em;
+}
+
+.menu-item:show-mnemonics .mnemonic-underline {
+    -fx-stroke: -fx-text-fill;
+} 
+
+
+.radio-menu-item:checked .radio {
+    -fx-background-color: -fx-mark-color;
+    -fx-shape: "M0,5H2L4,8L8,0H10L5,10H3Z";
+    -fx-scale-shape: false;
+}
+
+.radio-menu-item:focused:checked .radio {
+    -fx-background-color: white;
+}
+
+.check-menu-item:checked .check {
+    -fx-background-color: -fx-mark-color;
+    -fx-shape: "M0,5H2L4,8L8,0H10L5,10H3Z";
+    -fx-scale-shape: false;
+}
+
+.check-menu-item:focused:checked .check {
+    -fx-background-color: white;
+}
+
+.menu .arrow {
+    -fx-padding: 0.458em 0.167em 0.458em 0.167em; /* 4.5 2 4.5 2 */
+    -fx-background-color: -fx-mark-color;
+    -fx-shape: "M0,-4L4,0L0,4Z";
+    -fx-scale-shape: false;
+}
+
+.menu:selected .arrow {
+    -fx-background-color: rgb(40,40,40);
+}
+
+.menu-item:disabled {
+    -fx-opacity: -fx-disabled-opacity;
+}
